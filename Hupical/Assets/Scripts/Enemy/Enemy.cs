@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public float enemyDamage = 2f;
     public float health = 10;
     public int coinDrop = 10;
     public float speed;
@@ -25,5 +26,13 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float damage){
         health -= damage;
         Debug.Log(health);
+    }
+    void OnTriggerExit2D(Collider2D other){
+        
+        if(other.gameObject.CompareTag("Player")){
+                Health.playerTakeDMG(enemyDamage);    
+                Debug.Log("Enemy touched");
+
+        }
     }
 }

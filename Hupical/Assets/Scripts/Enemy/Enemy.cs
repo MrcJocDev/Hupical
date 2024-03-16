@@ -27,12 +27,11 @@ public class Enemy : MonoBehaviour
         health -= damage;
         Debug.Log(health);
     }
-    void OnTriggerExit2D(Collider2D other){
-        
+    
+    void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.CompareTag("Player")){
-                Health.playerTakeDMG(enemyDamage);    
-                Debug.Log("Enemy touched");
-
+            Debug.Log("Enemy attacked!");
+            Health.playerTakeDMG(enemyDamage);
         }
     }
 }

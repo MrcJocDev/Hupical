@@ -15,12 +15,12 @@ public class enemyMovement : MonoBehaviour
     {
         if(isChasing){
             if(transform.position.x > playerTransform.position.x){
-                transform.localScale = new Vector3(-0.31411f, 0.31411f, 0.31411f);
+                transform.localScale = new Vector3(-0.3421349f, 1.047788f, 0.31411f);
                 transform.position += Vector3.left * enemyMoveSpeed * Time.deltaTime;
             }
             
             if(transform.position.x < playerTransform.position.x){
-                transform.localScale = new Vector3(0.31411f, 0.31411f, -0.31411f);
+                transform.localScale = new Vector3(0.3421349f, 1.047788f, -0.31411f);
                 transform.position += Vector3.right * enemyMoveSpeed * Time.deltaTime;
             }
             

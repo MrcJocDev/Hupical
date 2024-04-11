@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header ("Movement")]
     public float moveSpeed;
+    public float airDrag;
     public float groundDrag;
 
     [Header ("Ground Check")]
@@ -30,18 +32,24 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Update(){
+    // jump 
+        jumpPlayer();
+
     //ground checking
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
         myInput();
     
-    // apply drag
+    // apply drag on air 
+        if(!grounded){
+            rb.drag = airDrag;
+        }
+
+    // apply drag on ground
         if(grounded){
             rb.drag = groundDrag;
         }
-        else{
-            rb.drag = 0;
-        }
+        
     }
 
     void FixedUpdate() {
@@ -56,5 +64,12 @@ public class PlayerMovement : MonoBehaviour
     void movePlayer(){
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+    }
+
+    void jumpPlayer(){
+        if(Input.GetKeyDown(KeyCode.Space) && grounded){
+            rb.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
+            grounded = false;
+        }
     }
 }

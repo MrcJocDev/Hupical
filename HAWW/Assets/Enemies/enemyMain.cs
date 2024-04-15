@@ -36,7 +36,6 @@ public class enemyMain : MonoBehaviour
 
     void gotoPlayer(){  // GO TO PLAYER FUNC +======+
         agent.SetDestination(player.transform.position);
-        agent.speed = 5f;
     }
 
      void OnCollisionEnter(Collision other) {

@@ -5,7 +5,7 @@ public class gunShoot : MonoBehaviour
     public float damage = 10f;
     public float range = 100f;
 
-    public GameObject shootPoint;
+    public Camera fpsCam;
 
     void Update()
     {
@@ -16,8 +16,11 @@ public class gunShoot : MonoBehaviour
 
     void Shoot(){
         RaycastHit hit;
-        if(Physics.Raycast(shootPoint.transform.position, shootPoint.transform.forward, out hit, range)){
-            Debug.Log(hit.transform.name);
+        if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range)){
+            enemyMain enemyMain = hit.transform.GetComponent<enemyMain>();
+            if(enemyMain != null){
+                enemyMain.takeDamage(damage);
+            }
         }
     }
 }

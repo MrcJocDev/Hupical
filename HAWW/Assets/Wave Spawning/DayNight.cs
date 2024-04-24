@@ -13,6 +13,7 @@ public class DayNight : MonoBehaviour
     public static bool isDayStc;
     public float dayCount = 0;
     public float dayCountStc = 0f;
+    public float difficulty_counter = 0f;
 
     // HUD vars
     public TMP_Text timeText;
@@ -32,7 +33,9 @@ public class DayNight : MonoBehaviour
             isDay = true;
             somebool = false;
             dayCount += 1f;
-
+            difficulty_counter += 1f;
+            enemyMain.giveDmg += 0.1f;
+            enemyMain.health += 0.05f;
          }        
 
          if(Time.time > nextSpawn && !somebool){

@@ -8,16 +8,16 @@ public class gunShoot : MonoBehaviour
 {
     // VARIABLES +============+
 
-    // Debug vars
-    public GameObject debugTrail;
     // Muzzle flash and sound vars
-    public GameObject flash;
+    public GameObject pistolFlash;
+    public GameObject rifleFlash;
     public GameObject bloodParticles;
     public AudioSource shotSound;
     public AudioClip test;
     public AudioClip PistolshotClip;
     public AudioClip RifleshotClip;
-    public Transform muzzlePoint;
+    public Transform muzzlePointPistol;
+    public Transform muzzlePointRifle;
 
     // HUD vars
     public TMP_Text clipText;
@@ -61,7 +61,7 @@ public class gunShoot : MonoBehaviour
                 firerate = 0.25f;                                                                           
                 nextfire = Time.time + firerate;                                                           
                 ShootPistol();                                                                             
-                GameObject test = Object.Instantiate(flash, muzzlePoint.position, muzzlePoint.rotation);   
+                GameObject test = Object.Instantiate(pistolFlash, muzzlePointPistol.position, muzzlePointPistol.rotation);   
                 Destroy(test, 0.05f);                                                                      
                 clipSize -= 1f;
                 playPistolSFX();
@@ -72,7 +72,7 @@ public class gunShoot : MonoBehaviour
                 firerate = 0.1f;
                 nextfire = Time.time + firerate;
                 ShootRifle();
-                GameObject test = Object.Instantiate(flash, muzzlePoint.position, muzzlePoint.rotation);
+                GameObject test = Object.Instantiate(rifleFlash, muzzlePointRifle.position, muzzlePointRifle.rotation);
                 Destroy(test, 0.05f);
                 clipSize -= 1f;
                 playRifleSFX();
@@ -87,7 +87,7 @@ public class gunShoot : MonoBehaviour
     void ShootPistol(){
         RaycastHit hit;
         if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range)){
-            Debug.DrawRay(fpsCam.transform.position, fpsCam.transform.forward * range, Color.red, 100);
+                Debug.DrawRay(fpsCam.transform.position, fpsCam.transform.forward * range, Color.red, 100);
             enemyMain enemyMain = hit.transform.GetComponent<enemyMain>();
             if(enemyMain != null){
                 GameObject dupedParticles = Instantiate(bloodParticles, hit.point, Quaternion.LookRotation(hit.normal));

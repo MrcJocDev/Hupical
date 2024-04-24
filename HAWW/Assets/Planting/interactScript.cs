@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class interactScript : MonoBehaviour
 {    
+    // ITEM DROP Vars
+    public GameObject wheatPrefab;
+    public GameObject wheatSpawm;
 
     // money on harvest vars
     public TMP_Text moneyText;
@@ -18,7 +21,7 @@ public class interactScript : MonoBehaviour
         RaycastHit hit;
 
 
-        if(Input.GetKeyDown(KeyCode.E)){
+        if(Input.GetKeyDown(KeyCode.F)){
             if(someBool && Physics.Raycast(cam.position, cam.TransformDirection(Vector3.forward), out hit, 10) && hit.collider.gameObject.CompareTag("PlantBox")){
                 plantcrop.timerIsRunningStc = true;
                 someBool = false;
@@ -28,9 +31,17 @@ public class interactScript : MonoBehaviour
                 isHarvestable = true;
                 if(isHarvestable && Physics.Raycast(cam.position, cam.TransformDirection(Vector3.forward), out hit, 10) && hit.collider.gameObject.CompareTag("Plant")){
                     giveMoney();
-                    Destroy(hit.collider.gameObject);
+                    Vector3 itemSpawn = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z);
+                    Instantiate(wheatPrefab, wheatSpawm.transform.position, Quaternion.identity);
                     someBool = true;
+                    Destroy(hit.collider.gameObject);
                     
+                }
+            }
+
+            if(Physics.Raycast(cam.position, cam.TransformDirection(Vector3.forward), out hit, 10)){
+                if(hit.collider.gameObject.CompareTag("collectible")){
+                    Destroy(hit.collider.gameObject);
                 }
             }
         }        

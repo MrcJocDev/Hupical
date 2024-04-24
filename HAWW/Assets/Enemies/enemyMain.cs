@@ -8,7 +8,8 @@ public class enemyMain : MonoBehaviour
 {
     // VARIABLESS +======+
 
-    // Death sound / other cosmetics
+    // ITEM DROP Vars
+    public GameObject wheat;
 
     //timer vars
     public float firerate;
@@ -18,9 +19,9 @@ public class enemyMain : MonoBehaviour
     public GameObject player;
     public NavMeshAgent agent;
 
-    public float giveDmg =  10f;
+    public static float giveDmg =  10f;
     public Rigidbody rb;
-    public float health = 20f;
+    public static float health = 20f;
 
 
 
@@ -56,6 +57,4 @@ public class enemyMain : MonoBehaviour
         }   
          
     }
-
-   
 }

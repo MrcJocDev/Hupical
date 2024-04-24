@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlantBox
   - Plant
+  - collectible
   layers:
   - Default
   - TransparentFX

@@ -7,11 +7,18 @@ using UnityEngine.AI;
 public class enemyMain : MonoBehaviour
 {
     // VARIABLESS +======+
+
+    // Death sound / other cosmetics
+
+    //timer vars
+    public float firerate;
+    float nextfire;
+
+    // enemy stuff. damage and ai 
     public GameObject player;
     public NavMeshAgent agent;
 
     public float giveDmg =  10f;
-
     public Rigidbody rb;
     public float health = 20f;
 
@@ -22,6 +29,7 @@ public class enemyMain : MonoBehaviour
     }
     private void Update() {  // UPDATE FUNC +=======+
         gotoPlayer();
+
     }
     public void takeDamage(float dmage){  // TAKE DAMAGE FUNC +=======+
         health -= dmage;
@@ -38,11 +46,16 @@ public class enemyMain : MonoBehaviour
         agent.SetDestination(player.transform.position);
     }
 
-     void OnCollisionEnter(Collision other) {
+    void OnCollisionEnter(Collision other) {    // DAMAGE PLAYER +======+
         if(other.gameObject.CompareTag("Player")){
-            playerHealth phealth = other.gameObject.GetComponent<playerHealth>();
-            phealth.playerTakeDMG(giveDmg);
-        }    
+            if(Time.time > nextfire){
+                nextfire = Time.time + firerate;
+                playerHealth phealth = other.gameObject.GetComponent<playerHealth>();
+                phealth.playerTakeDMG(giveDmg);
+            }
+        }   
+         
     }
+
    
 }

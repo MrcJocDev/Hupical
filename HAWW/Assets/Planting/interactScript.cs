@@ -40,7 +40,8 @@ public class interactScript : MonoBehaviour
             }
 
             if(Physics.Raycast(cam.position, cam.TransformDirection(Vector3.forward), out hit, 10)){
-                if(hit.collider.gameObject.CompareTag("collectible")){
+                if(hit.collider.gameObject.CompareTag("wheat")){
+                    invData.wheatCount += 1;
                     Destroy(hit.collider.gameObject);
                 }
             }

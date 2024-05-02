@@ -6,7 +6,9 @@ TagManager:
   tags:
   - PlantBox
   - Plant
+  - wheat
   - collectible
+  - Nigguh
   layers:
   - Default
   - TransparentFX

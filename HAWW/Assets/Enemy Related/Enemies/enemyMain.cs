@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Scripting.APIUpdating;
 
 public class enemyMain : MonoBehaviour
 {
     // VARIABLESS +======+
 
+    public GameObject eyes;
+    public float detectionRange;
     // ITEM DROP Vars
-    public GameObject wheat;
+
 
     //timer vars
+    public float roamRate = 5f;
+    float nextMove;
     public float firerate;
     float nextfire;
 
     // enemy stuff. damage and ai 
+    public float speed = 5f;
     public GameObject player;
     public NavMeshAgent agent;
 
@@ -29,7 +35,7 @@ public class enemyMain : MonoBehaviour
         rb = GetComponent<Rigidbody>();    
     }
     private void Update() {  // UPDATE FUNC +=======+
-        gotoPlayer();
+        enemyAi();
 
     }
     public void takeDamage(float dmage){  // TAKE DAMAGE FUNC +=======+
@@ -42,11 +48,7 @@ public class enemyMain : MonoBehaviour
     void enemyDie(){  // DIE ON 0 HP FUNC +=======+
         Destroy(gameObject);
     }
-
-    void gotoPlayer(){  // GO TO PLAYER FUNC +======+
-        agent.SetDestination(player.transform.position);
-    }
-
+    
     void OnCollisionEnter(Collision other) {    // DAMAGE PLAYER +======+
         if(other.gameObject.CompareTag("Player")){
             if(Time.time > nextfire){
@@ -56,5 +58,17 @@ public class enemyMain : MonoBehaviour
             }
         }   
          
+    }
+
+    void enemyAi(){
+        if(Vector3.Distance(player.transform.position, transform.position) <= 10){
+            agent.SetDestination(player.transform.position);
+        }
+
+        else{
+            agent.SetDestination(transform.position);
+            
+    }
+
     }
 }
